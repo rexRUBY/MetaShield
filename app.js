@@ -35,20 +35,14 @@ https.createServer(options, app).listen(port, host, () => {
 var cerStatus = 0;
 
 
-//서버 실행
-// app.listen(port, host, () => {
-//   console.log(`Server is running at ${port}`);
-// });
-
-
 
 // DB 연결
 var connection = database.createConnection({
-  host: '34.64.231.17',
-  port: 3306,
-  user: 'root',
-  password: '051227pys',
-  database: 'MetaShield'
+  host: '--------',
+  port: '--------',
+  user: '--------',
+  password: '--------',
+  database: '--------'
 });
 
 
@@ -68,18 +62,18 @@ connection.connect(function (err) {
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 465,
-  secure: true, // true for 465, false for other ports
+  secure: true,
   auth: {
-    user: 'metashield.co.kr@gmail.com',
-    pass: 'lkod kccv gbou fuak',
+    user: '--------',
+    pass: '--------',
   },
 });
 
 
 // 메일 옵션 설정
 const emailOptions = {
-  from: 'metashield.co.kr@gmail.com',
-  to: 'ye_2002@naver.com',
+  from: '--------',
+  to: '--------',
   subject: 'MetaShield 인증코드',
   html:
     "<h1>MetaShield에서 인증코드를 알려드립니다.</h1> <h2> 인증코드 : </h2>"
