@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+
+<body>
+    <h2>회원가입</h2>
+
+    <label for="name">이름:</label>
+    <input type="text" id="name" placeholder="이름을 입력하세요"><br>
+
+    <label for="email">이메일:</label>
+    <input type="email" id="email" placeholder="이메일을 입력하세요"><br>
+
+    <label for="studentId">학번(교번):</label>
+    <input type="text" id="studentId" placeholder="학번을 입력하세요"><br>
+
+    <input type="radio" id="student" name="role" value="student">
+    <label for="student">학생</label>
+    <input type="radio" id="teacher" name="role" value="teacher">
+    <label for="teacher">교수</label><br>
+
+    <label for="emailVerification">이메일 인증:</label>
+    <input type="text" id="emailVerification" placeholder="6자리 인증 코드를 입력하세요">
+    <button onclick="sendEmail()" id="emailButton">인증코드 전송</button>&nbsp;
+    <button onclick="verify()" id="verifyBtn" disabled>인증 확인</button>
+    <span id="timer"></span><br>
+
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" placeholder="비밀번호를 입력하세요"><br>
+
+    <button onclick="register()">회원가입</button>
+
+    <script>
+        let timer;
+
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            function updateTimer() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(intervalId);
+                    alert('인증 시간이 만료되었습니다.');
+                }
+            }
+
+            updateTimer(); // 초기 호출
+            const intervalId = setInterval(updateTimer, 1000);
+
+            // 타이머 ID를 저장하여 나중에 중단할 수 있도록 함
+            return intervalId;
+        }
+
+
+        function sendEmail() {
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/mail', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            alert('메일로 6자리 인증코드를 전송했습니다.');
+
+            const data = JSON.stringify({ name, email });
+            xhr.send(data);
+
+            // 타이머 시작
+            const threeMinutes = 60 * 3;
+            const display = document.getElementById('timer');
+            if (timer) {
+                clearInterval(timer); // 이미 타이머가 동작 중이면 중단
+            }
+            timer = startTimer(threeMinutes, display);
+
+            const emailButton = document.getElementById('emailButton');
+            emailButton.textContent = '인증코드 재전송';
+            document.getElementById('verifyBtn').disabled = false;
+        }
+
+
+        function verify() {
+            console.log('verify');
+            var authCode = document.getElementById('emailVerification').value;
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/verify', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText);
+                }
+            };
+            var data = JSON.stringify({ authCode });
+            xhr.send(data);
+        }
+
+        function register() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const studentId = document.getElementById('studentId').value;
+            const password = document.getElementById('password').value;
+            let role = '';
+
+            if (document.getElementById('teacher').checked === false) {
+                role = 'student';
+            }
+            else {
+                role = 'teacher';
+            }
+
+            console.log(role);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/register', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText);
+                    //로그인 페이지로 이동
+                    location.href = '/login.html';
+                }
+            };
+
+            const data = JSON.stringify({ name, email, studentId, password, role });
+            xhr.send(data);
+        }
+    </script>
+</body>
+
+</html>

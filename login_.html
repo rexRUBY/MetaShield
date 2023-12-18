@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <script>
+    function loginUser() {
+      const id = document.getElementById('id').value;
+      const pw = document.getElementById('pw').value;
+
+      // AJAX를 사용한 로그인 요청
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/login', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          if (xhr.responseText === 'student')
+            location.href = '/index_student.html';
+          else if (xhr.responseText === 'teacher')
+            location.href = '/index_teacher.html';
+          else
+            alert(xhr.responseText);
+        }
+      };
+      const data = JSON.stringify({ id, pw });
+      xhr.send(data);
+    }
+  </script>
+</head>
+<body>
+  <label for="id">ID :</label>
+  <input type="text" id="id" name="id" required><br>
+
+  <label for="pw">PW:</label>
+  <input type="password" id="pw" name="pw" required><br>
+
+  <button type="button" onclick="loginUser()">Login</button>
+  <button type="button" onclick="location.href='/register.html'">Register</button>
+</body>
+</html>

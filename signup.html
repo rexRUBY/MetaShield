@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab - signup</title>
+    <!-- favicon -->
+    <link rel="icon" sizes="32x32" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+    <!-- 부트스트랩 CSS 파일 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 부트스트랩 JavaScript 및 종속성 파일 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 그라데이션 ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
+    <style>
+         /* @font-face 규칙 추가 */
+         @font-face {
+            font-family: 'HBIOS-SYS';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        * {
+            box-sizing: border-box;
+            font-family: 'HBIOS-SYS';
+        }
+
+        body {
+            background: #f6f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: "Inconsolata", monospace;
+            height: 100vh;
+            margin: -20px 0 50px;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 20px 0 30px;
+        }
+
+        span {
+            font-size: 12px;
+        }
+
+        a {
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+
+        button {
+            border-radius: 20px;
+            border: 1px solid #0e27fb;
+            background-color: #0e27fb;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button.ghost {
+            background-color: transparent;
+            border-color: #FFFFFF;
+        }
+
+        form {
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+                0 10px 10px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 480px;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .sign-in-container {
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+        }
+
+        .sign-up-container {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.6s;
+        }
+
+        @keyframes show {
+
+            0%,
+            49.99% {
+                opacity: 0;
+                z-index: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+
+        .container.right-panel-active .overlay-container {
+            transform: translateX(-100%);
+        }
+
+        .overlay {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: #FFFFFF;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+
+        .container.right-panel-active .overlay-left {
+            transform: translateX(0);
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+        }
+
+        .social-container {
+            margin: 20px 0;
+        }
+
+        .social-container a {
+            border: 1px solid #DDDDDD;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            height: 40px;
+            width: 40px;
+        }
+
+        footer {
+            background-color: #222;
+            color: #fff;
+            font-size: 14px;
+            bottom: 0;
+            position: fixed;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 999;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer i {
+            color: red;
+        }
+
+        footer a {
+            color: #3c97bf;
+            text-decoration: none;
+        }
+
+        #gradient {
+            background: linear-gradient(to right, #FF4B2B, #FF416C);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: #FFFFFF;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .container.right-panel-active #gradient {
+            transform: translateX(50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-in-container" style="text-align: center;">
+            <h1 style="margin-top: 40px;">Sign Up</h1>
+            <!-- 회원가입 -->
+            <form id="signup-form" method="post" style="padding-bottom: 50px;">
+                <div style="overflow-y: scroll; max-height: 300px; width: 300px; padding: 0px 15px 15px 15px;">
+                    <!-- 이름 -->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="name" id="name"
+                            style="font-family: 'Noto Sans KR', sans-serif;" placeholder="Name" />
+                        <label class="form-label" for="name">Name</label>
+                        <div class="valid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            확인되었습니다.
+                        </div>
+                        <div class="invalid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            2글자 이상 10글자 미만으로 입력해주세요
+                        </div>
+                    </div>
+
+                    <!-- 학번 -->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="id" id="id"
+                            style="font-family: 'Noto Sans KR', sans-serif;" placeholder="ID" />
+                        <label class="form-label" for="id">ID</label>
+                        <div class="valid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            확인되었습니다.
+                        </div>
+                        <div class="invalid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            유효하지 않은 학번 입니다.
+                        </div>
+                    </div>
+
+                    <!-- 비밀번호 -->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="password" name="pw" id="pw"
+                            style="font-family: 'Noto Sans KR', sans-serif;" placeholder="Password" />
+                        <label class="form-label" for="id">Password</label>
+                        <div class="valid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            안전한 비밀번호입니다.
+                        </div>
+                        <div class="invalid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            안전하지 않은 비밀번호입니다.<br>(8글자 이상, 영문, 숫자, 특수문자 포함)
+                        </div>
+                    </div>
+
+                    <!-- 이메일 -->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="email" id="mail"
+                            style="font-family: 'Noto Sans KR', sans-serif;" placeholder="Email" />
+                        <label class="form-label" for="mail">Email</label>
+                        <div class="valid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            확인되었습니다.
+                        </div>
+                        <div class="invalid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            유효한 메일을 입력해주세요
+                        </div>
+                    </div>
+
+                    <!-- 핸드폰번호 -->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="tel" name="phone" id="phone"
+                            style="font-family: 'Noto Sans KR', sans-serif;" placeholder="Phone" />
+                        <label class="form-label" for="mail">Phone</label>
+                        <div class="valid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            확인되었습니다.
+                        </div>
+                        <div class="invalid-feedback" style="font-family: 'Noto Sans KR', sans-serif;">
+                            유효한 전화번호를 입력해주세요
+                        </div>
+                    </div>
+                </div>
+                <button id="signup-button" type="submit" style="margin-bottom: 30px;">Sign Up</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                </div>
+                <div id="gradient" class="overlay-panel overlay-right" style="background-color: black;">
+                    <h1>Create your account!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let isNameValid = false;
+        let isIdValid = false;
+        let isPwValid = false;
+        let isMailValid = false;
+        let isPhoneValid = false;
+
+        // 모든 입력 필드의 이벤트 리스너를 등록하여 유효성 검사를 수행하고 버튼 상태를 업데이트합니다.
+        document.querySelector("#name").addEventListener("input", function () {
+            let inputNick = this.value;
+            isNameValid = inputNick.length >= 2 && inputNick.length <= 10;
+            if (isNameValid) {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+            updateButtonState();
+        });
+
+        document.querySelector("#id").addEventListener("input", function () {
+            let inputId = this.value;
+            isIdValid = inputId.length == 10 && inputId[4] == 6 && inputId[5] == 7 && inputId[6] == 1 && inputId[7] == 0;
+            if (isIdValid) {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+            updateButtonState();
+        });
+
+        document.querySelector("#pw").addEventListener("input", function () {
+            let inputPw = this.value;
+            //8글자 이상, 영문, 숫자, 특수문자 포함하는지 검사
+            isPwValid = inputPw.length >= 8 && inputPw.match(/[a-zA-Z]/g) && inputPw.match(/[0-9]/g) && inputPw.match(/[^a-zA-Z0-9]/g);
+            if (isPwValid) {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+            updateButtonState();
+        });
+
+        document.querySelector("#mail").addEventListener("input", function () {
+            let inputMail = this.value;
+            //메일 주소 유효성 검사(언더바 포함)
+            isMailValid = inputMail.match(/^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$/);
+            if (isMailValid) {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+            updateButtonState();
+        });
+
+        document.querySelector("#phone").addEventListener("input", function () {
+            let inputPhone = this.value;
+            //11자리 핸드폰 번호 유효성 검사
+            isPhoneValid = inputPhone.match(/^[0-9]{11}$/);
+            if (isPhoneValid) {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+            updateButtonState();
+        });
+
+        // 버튼 상태를 업데이트하는 함수
+        function updateButtonState() {
+            // 모든 유효성 검사가 만족할 때 버튼 활성화
+            if (isNameValid && isIdValid && isPwValid && isMailValid && isPhoneValid) {
+                document.querySelector("#signup-button").disabled = false;
+            } else {
+                document.querySelector("#signup-button").disabled = true;
+            }
+        }
+
+        // 이벤트 핸들러: 로그인 폼 제출 시 실행
+        document.getElementById('signup-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작 방지
+
+            const formData = new FormData(document.getElementById('signup-form'));
+
+            // FormData에서 데이터를 추출하여 JavaScript 객체 생성
+            const formDataObject = {};
+
+            //""을 빼고 key값을 넣어줌
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+
+            // 이제 formDataObject는 JSON으로 변환할 수 있는 JavaScript 객체입니다
+            const jsonData = JSON.stringify(formDataObject);
+            console.log(jsonData);
+
+            fetch('http://localhost:3000/signup.html', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: jsonData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 서버에서 받은 데이터를 처리
+                    if (data.success) {
+                        // 로그인 성공 시의 동작
+                        console.log(성공);
+                    } else {
+                        // 로그인 실패 시의 동작
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>MetaShield</title>
+    <!-- 부트스트랩 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 부트스트랩 JS와 Popper.js를 함께 불러오는 부분 -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body onload="loadData()">
+    <!-- 네비게이션 바 -->
+    <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" />
+        <div id="nav-header"><a id="nav-title" href="https://metashield.co.kr/index.html"
+                target="_blank">&nbsp;&nbsp;MetaShield</a>
+            <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+            <hr />
+        </div>
+        <div id="nav-content">
+            <div class="nav-button" onclick="location.href='lecture_teacher.html'"><i
+                    class="fas fa-palette"></i><span>강의실</span></div>
+            <div class="nav-button"><i class="fas fa-images"></i><span>과제</span></div>
+            <div class="nav-button"><i class="fas fa-thumbtack"></i><span>수강이력</span></div>
+            <hr />
+            <div class="nav-button"><i class="fas fa-heart"></i><span>학생관리</span></div>
+            <div class="nav-button"><i class="fas fa-chart-line"></i><span>커뮤니티</span></div>
+            <hr />
+            <div class="nav-button"><i class="fas fa-gem"></i><span>마이페이지</span></div>
+            <div id="nav-content-highlight"></div>
+        </div>
+        <input id="nav-footer-toggle" type="checkbox" />
+        <div id="nav-footer">
+            <div id="nav-footer-heading">
+                <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547" />
+                </div>
+                <div id="nav-footer-titlebox"><a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public"
+                        target="_blank">uahnbu</a><span id="nav-footer-subtitle">Admin</span></div>
+                <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+            </div>
+            <div id="nav-footer-content">
+                <Lorem>ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore
+                    magna aliqua.</Lorem>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 뷰 -->
+    <div id="view">
+        <div class="card" style="margin-left: 310px; margin-top: 20px; margin-right: 40px;">
+            <div id="lecture_header" class="card-header">
+                <!-- 강의 제목 -->
+            </div>
+            <div class="card-body" id="content">
+                <!-- 강의 영상 -->
+            </div>
+        </div>
+    </div>
+    <script>
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function loadData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/lecture_student', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    var data_length = data.length;
+                    var html = "";
+
+                    for (var i = 0; i < data_length; i++) {
+                        var startDate = new Date(data[i].start_day);
+                        var endDate = new Date(data[i].end_day);
+
+                        html += "<div class='card' style='margin-left: 320px; margin-top: 20px; margin-right: 50px;'>";
+                        html += "<div id='lecture_header_" + i + "' class='card-header'><b>" + data[i].lec_name + "</b></div>";
+                        html += "<div class='card-body' id='content_" + i + "'>&nbsp;&nbsp;수강가능 기간 : " + formatDate(startDate) + " ~ " + formatDate(endDate) + "</div>";
+                        html += '<iframe style="margin-left: 30px; margin-bottom: 20px;" width="560" height="315" src="' + data[i].url + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                        html += "</div>";
+                    }
+
+                    document.getElementById("view").innerHTML = html;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>
