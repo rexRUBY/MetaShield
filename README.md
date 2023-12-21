@@ -12,8 +12,6 @@
 ![슬라이드12](https://github.com/rexRUBY/MetaShield/assets/87340601/a27518cc-2b10-407e-8798-e142ad58e3be)
 ![슬라이드13](https://github.com/rexRUBY/MetaShield/assets/87340601/0425dfcb-de95-46d1-8dcc-9377a2149bea)
 ![슬라이드14](https://github.com/rexRUBY/MetaShield/assets/87340601/29470875-b275-4eca-a878-e8227aeb3e00)
-![슬라이드15](https://github.com/rexRUBY/MetaShield/assets/87340601/13db1f11-894b-46a3-a154-a5a898d4fac6)
-![슬라이드16](https://github.com/rexRUBY/MetaShield/assets/87340601/c7c739c8-2c69-4a67-8cb3-2fdea2e4dece)
 ![슬라이드17](https://github.com/rexRUBY/MetaShield/assets/87340601/23b5fec9-d25d-4239-b3d9-becb0117af7f)
 ![슬라이드18](https://github.com/rexRUBY/MetaShield/assets/87340601/349f898f-a31d-40b0-80d6-3182080a9bf8)
 ![슬라이드19](https://github.com/rexRUBY/MetaShield/assets/87340601/f6330827-d888-4cb3-84ac-00db6fbf6e24)
