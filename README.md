@@ -1,5 +1,6 @@
-https://youtu.be/30CIpKywjmo?si=q48PztWJo_cG3WYN
+[![Video](https://img.youtube.com/vi/30CIpKywjmo/0.jpg)](https://youtu.be/30CIpKywjmo?si=Wymhc1Fb9_S1GqXQ)
 
+[![Video Label](http://img.youtube.com/vi/'유튜브주소의id'/0.jpg)](https://youtu.be/'유튜브주소의id')
 ![슬라이드1](https://github.com/rexRUBY/MetaShield/assets/87340601/963287ca-814d-4a66-a52b-153ac6c356e0)
 ![슬라이드2](https://github.com/rexRUBY/MetaShield/assets/87340601/cd3b9cbe-c6be-4851-ac3e-6abe00251a52)
 ![슬라이드3](https://github.com/rexRUBY/MetaShield/assets/87340601/64eafc0b-e5d2-4114-b9a0-a68708527d1f)
