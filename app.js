@@ -72,8 +72,8 @@ const transporter = nodemailer.createTransport({
 
 // 메일 옵션 설정
 const emailOptions = {
-  from: '--------',
-  to: '--------',
+  from: process.env.MAIL_USER,
+  to: mail,
   subject: 'MetaShield 인증코드',
   html:
     "<h1>MetaShield에서 인증코드를 알려드립니다.</h1> <h2> 인증코드 : </h2>"
@@ -155,11 +155,13 @@ app.post('/register', (req, res) => {
 
 // 메일 인증
 var authNum = '';
+var mail = '';
 app.post('/mail', (req, res) => {
   authNum = Math.random().toString().substr(2, 6);
   console.log(authNum);
   const { name, email } = req.body;
   console.log(`Received mail request - Name: ${name}, Mail: ${email}`);
+  mail = email;
 
   // 메일 옵션 업데이트
   emailOptions.to = email;
