@@ -38,11 +38,11 @@ var cerStatus = 0;
 
 // DB 연결
 var connection = database.createConnection({
-  host: '--------',
-  port: '--------',
-  user: '--------',
-  password: '--------',
-  database: '--------'
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
+  user: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
 });
 
 
@@ -64,8 +64,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: '--------',
-    pass: '--------',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_KEY,
   },
 });
 
